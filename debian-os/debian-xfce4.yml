@@ -1,0 +1,16 @@
+---
+  - hosts: all
+    become: True
+    become_user: "{{ debian_user }}"
+    roles: 
+      - debian-xfce4
+    vars:
+      debian_user: DEBIAN_USER
+      debian_version: DEBIAN_VERSION
+      debian_host: IP_OR_DOMAIN
+      debian_private_key_file: ~/.ssh/SSH_PRIV_KEY
+      debian_port: 22
+      ansible_python_interpreter: /usr/bin/python3
+    environment:
+      DISPLAY: ":0"
+      DBUS_SESSION_BUS_ADDRESS: "unix:path=/run/user/1000/bus"

@@ -1,0 +1,381 @@
+- block:
+  - name: ADD SOURCES FILE
+    template:
+      src: sources.list
+      dest: /etc/apt/sources.list
+      owner: "root"
+      group: "root"
+      mode: "0644"
+
+  - name: ADD DEBIAN SOURCES
+    template:
+      src: debian.sources
+      dest: /etc/apt/sources.list.d/
+      owner: "root"
+      group: "root"
+      mode: "0644"
+
+  - name: CUSTOM BASHRC
+    template:
+      src: bashrc
+      dest: .bashrc
+      owner: "{{ debian_user }}"
+      group: "{{ debian_user }}"
+      mode: "0644"
+
+  - name: SUDO NOPASSWD
+    template:
+      src: 010_user_nopasswd
+      dest: /etc/sudoers.d/010_user_nopasswd
+      owner: "root"
+      group: "root"
+      mode: "0644"      
+
+  - name: DOWNLOAD GPG DEB-MULTIMEDIA
+    ansible.builtin.get_url:
+      url: https://www.deb-multimedia.org/pool/main/d/deb-multimedia-keyring/deb-multimedia-keyring_2024.9.1_all.deb
+      dest: /tmp/deb-multimedia-keyring.deb
+
+  - name: INSTALL GPG DEB-MULTIMEDIA
+    ansible.builtin.apt:
+      deb: /tmp/deb-multimedia-keyring.deb
+
+  - name: DEB-MULTIMEDIA
+    deb822_repository:
+      name: deb-multimedia
+      types: deb
+      uris: https://www.deb-multimedia.org
+      suites: "{{ debian_version }}"
+      enabled: true
+      components:
+        - main
+        - non-free
+      architectures:
+        - amd64
+
+  - name: SPOTIFY
+    deb822_repository:
+      name: spotify
+      types: deb
+      uris: https://repository.spotify.com
+      suites: stable
+      signed_by: https://download.spotify.com/debian/pubkey_C85668DF69375001.gpg
+      enabled: true
+      components:
+        - non-free
+
+  - name: TYPORA
+    deb822_repository:
+      name: typora
+      types: deb
+      uris: https://typora.io/linux
+      suites: ./
+      signed_by: https://typora.io/linux/public-key.asc
+      enabled: true
+
+  - name: VSCODE
+    deb822_repository:
+      name: vscode
+      types: deb
+      uris: https://packages.microsoft.com/repos/code
+      suites: stable
+      signed_by: https://packages.microsoft.com/keys/microsoft.asc
+      enabled: true
+      architectures:
+        - amd64
+      components:
+        - main
+
+  - name: NODEJS
+    deb822_repository:
+      name: nodejs
+      types: deb
+      uris: https://deb.nodesource.com/node_18.x
+      suites: "{{ debian_version }}"
+      signed_by: https://deb.nodesource.com/gpgkey/nodesource.gpg.key
+      enabled: true
+      components:
+        - main
+
+  - name: YARN
+    deb822_repository:
+      name: yarn
+      types: deb
+      uris: https://dl.yarnpkg.com/debian
+      suites: stable
+      signed_by: https://dl.yarnpkg.com/debian/pubkey.gpg
+      enabled: true
+      components:
+        - main
+
+  - name: DOCKER-CE
+    deb822_repository:
+      name: docker
+      types: deb
+      uris: https://download.docker.com/linux/debian
+      suites: "{{ debian_version }}"
+      signed_by: https://download.docker.com/linux/debian/gpg
+      enabled: true
+      architectures:
+        - amd64
+      components:
+        - stable
+
+  - name: VIRTUALBOX
+    deb822_repository:
+      name: virtualbox
+      types: deb
+      uris: https://download.virtualbox.org/virtualbox/debian
+      suites: "{{ debian_version }}"
+      signed_by: https://www.virtualbox.org/download/oracle_vbox_2016.asc
+      enabled: true
+      architectures:
+        - amd64
+      components:
+        - contrib
+
+  - name: KUBERNETES
+    deb822_repository:
+      name: kubernetes
+      types: deb
+      uris: https://pkgs.k8s.io/core:/stable:/v1.30/deb/ 
+      suites: /
+      signed_by: https://pkgs.k8s.io/core:/stable:/v1.30/deb/Release.key
+      enabled: true
+
+  - name: HASHICORP
+    deb822_repository:
+      name: hashicorp
+      types: deb
+      uris: https://apt.releases.hashicorp.com
+      suites: "{{ debian_version }}"
+      signed_by: https://apt.releases.hashicorp.com/gpg
+      enabled: true
+      architectures:
+        - amd64
+      components:
+        - main
+
+  - name: AZURE-CLI
+    deb822_repository:
+      name: azure-cli
+      types: deb
+      uris: https://packages.microsoft.com/repos/azure-cli
+      suites: "{{ debian_version }}"
+      signed_by: https://packages.microsoft.com/keys/microsoft.asc
+      enabled: true
+      architectures:
+        - amd64
+      components:
+        - main
+
+  - name: BRAVE-BROWSER
+    deb822_repository:
+      name: brave-browser
+      types: deb
+      uris: https://brave-browser-apt-release.s3.brave.com
+      suites: stable
+      signed_by: https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg
+      enabled: true
+      components:
+        - main
+
+  - name: GOOGLE-CHROME
+    deb822_repository:
+      name: google-chrome
+      types: deb
+      uris: https://dl.google.com/linux/chrome/deb
+      suites: stable
+      signed_by: https://dl.google.com/linux/linux_signing_key.pub
+      enabled: true
+      architectures:
+        - amd64
+      components:
+        - main
+
+  - name: CLOUDFLARED
+    deb822_repository:
+      name: cloudflared
+      types: deb
+      uris: https://pkg.cloudflare.com/cloudflared
+      suites: any
+      signed_by: https://pkg.cloudflare.com/cloudflare-main.gpg
+      enabled: true
+      architectures:
+        - amd64
+      components:
+        - main
+
+  - name: GRAFANA
+    deb822_repository:
+      name: grafana
+      types: deb
+      uris: https://apt.grafana.com
+      suites: stable
+      signed_by: https://apt.grafana.com/gpg.key 
+      enabled: true
+      components:
+        - main
+
+  - name: MICROSOFT-EDGE
+    deb822_repository:
+      name: microsoft-edge
+      types: deb
+      uris: https://packages.microsoft.com/repos/edge
+      suites: stable
+      signed_by: https://packages.microsoft.com/keys/microsoft.asc
+      enabled: true
+      architectures:
+        - amd64
+      components:
+        - main
+
+  - name: OPENVPN3
+    deb822_repository:
+      name: openvpn3
+      types: deb
+      uris: https://packages.openvpn.net/openvpn3/debian
+      suites: "{{ debian_version }}"
+      signed_by: https://packages.openvpn.net/packages-repo.gpg
+      enabled: true
+      components:
+        - main
+
+  - name: POSTGRESQL
+    deb822_repository:
+      name: pgdg
+      types: deb
+      uris: https://apt.postgresql.org/pub/repos/apt
+      suites: "{{ debian_version }}-pgdg"
+      signed_by: https://www.postgresql.org/media/keys/ACCC4CF8.asc
+      enabled: true
+      components:
+        - main
+
+  - name: SIGNAL
+    deb822_repository:
+      name: signal
+      types: deb
+      uris: https://updates.signal.org/desktop/apt
+      suites: xenial
+      signed_by: https://updates.signal.org/desktop/apt/keys.asc
+      enabled: true
+      architectures:
+        - amd64
+      components:
+        - main
+
+  - name: SYNCTHING
+    deb822_repository:
+      name: sincthing
+      types: deb
+      uris: https://apt.syncthing.net
+      suites: syncthing
+      signed_by: https://syncthing.net/release-key.gpg
+      enabled: true
+      components:
+        - stable
+
+  - name: TRIVY
+    deb822_repository:
+      name: trivy
+      types: deb
+      uris: https://aquasecurity.github.io/trivy-repo/deb
+      suites: generic
+      signed_by: https://aquasecurity.github.io/trivy-repo/deb/public.key
+      enabled: true
+      components:
+        - main
+
+  - name: ULAUNCHER
+    deb822_repository:
+      name: ulauncher
+      types: deb
+      uris: https://ppa.launchpadcontent.net/agornostal/ulauncher/ubuntu
+      suites: noble
+      enabled: true
+      components:
+        - main
+      signed_by: |-
+        -----BEGIN PGP PUBLIC KEY BLOCK-----
+        .
+        mQINBFU7uhABEADX+dREIrFMc7DmSXZ5uu8D5Rl9dcmOF1qRvbkGbhfSgmQGG3d4
+        xgQgCPOu/SNd/TUI7j4PB3G544Gv1uGRHwxNQyClknX1WiPGTYHLV61r8noITZez
+        N/fcfDZqnTaGzVg522jQDfhsdpinLMfeqTH9afe+FRv3fquW/zu5aY3LRLn3pIr0
+        5w9GFaL8KP5k04h4tCyYELr/mFtSB2YlQSTTp/3b2NpmRAmy89K8iGv8HWSw/smE
+        iOO6d+qDYDnNvRE0ZGhppmOOXCBrvUHBtei02BKfjnhEARXtSd+TkuGWW/A7F0Ic
+        IpLFlGbbjxy83yglcPmAnmEgRL3ow2Ek9acyQCS81sezW/mTE6+DY8/Z04x3HTh3
+        NPBdhyJSCX7YQcqKpv6y+Pfk+T8MZ1ICuU/BgYVsBl0Xl456FO/AKBZoeiBU1iU1
+        iYyUAqv0d/yBQNtZUtp4Hvk0cEChCjVcUu4+E9QWINikn976p721cPTPgY+drQbC
+        A8a2mk2DeUfmAGRXZ0h3A1z+ofbBwuoBzVqd36zLOwHcuSwlWjbUxuyQ/oB24JmY
+        aFqStru0VlyE5xbftZlFL7lejg0py7S3qerTFhlTeav4CSq8oLB1Ox5k/H54IZ/2
+        +lzuuPFoAAQILmM5aWECrLo5GeP9wvP3evg0uPiy8Kcutw4mQZf4Im0JCwARAQAB
+        tCVMYXVuY2hwYWQgUFBBIGZvciBBbGVrc2FuZHIgR29ybm9zdGFsiQI4BBMBAgAi
+        BQJVO7oQAhsDBgsJCAcDAgYVCAIJCgsEFgIDAQIeAQIXgAAKCRD68QIGmVAxdm+w
+        EACZ9gLfOGxuVnHgbIRTEhzXYIWI1/mTKJcZnou9xgq8mFnnbzetoPlwXeejcvAC
+        FTHsjhIatrPZ3xGZzIKKRmfkP8/32kzeaBYvB2oXaix0TPdJKXFlQI+014wwVW9e
+        unQBNlvjBv1+XCYmsIRvIN47LNy5ooNAsccX50Y9HiDGe1oRqUvvRN3ZUQri0exy
+        ttoJEapcbgwYV0CIlBbwFPsVjLw2a+Ihn8Uj5EqdrPgpnpTbwd+KE54WW8mxTYuF
+        M/MbsNb54wKrpMd5iEziZ7hJtHbP3UizAQDqLfMDlHmuAtiOe7tR+QrwjsC/uamo
+        vvFIIAmzemFGx3KfSUdMPUW7EoE9OPlvZLiLzodkJU4ippX5HVXJPPYhIX9yjoMR
+        +n/g6iYlJVkd6Ct7UeyzfpeDcc0O1dBprHFv3Mz12hJxi8v0x6uL5w8hq+p03fsv
+        2whFWPpkGq08wNftjMR90bD93852oU9MFIqMIhVdvQOfAWuAlb36FMc/uEP8YUhn
+        Gmui7gCqdjEmbK2noWoAjDPvT4mBw6vQIxqQAxWKjncj2uOJMP/KYpCkExoobuns
+        3GNGExETNCNZgRSiAd1k1yLY5bQNL8Dm7e+B3TMgYdbI3i2dO+C9U8Zh0wqTZPDM
+        Z8KNR1GrrQK0iirG04jYtGBDWxITuKT0rDURJcPy156Iig==
+        =E6TL
+        -----END PGP PUBLIC KEY BLOCK-----
+
+  - name: UPDATE CACHE
+    apt:
+      update_cache: yes
+      cache_valid_time: 3600
+
+  - name: UPGRADE ALL PACKAGES
+    apt:
+      name: "*"
+      state: latest
+
+  - name: INSTALL PACKAGES BASICS
+    apt:
+      name:
+        - apt-transport-https
+        - ca-certificates
+        - curl
+        - wget
+        - gnupg
+        - gnupg-agent
+        - lsb-release
+        - vim
+        - build-essential
+        - checkinstall
+        - make
+        - automake
+        - autoconf
+        - dkms
+        - git
+        - dirmngr
+        - software-properties-common
+        - debsig-verify
+      state: latest
+
+  - name: UNINSTALL DEFAULT PACKAGES
+    apt:
+      name:
+        - vim-tiny
+        - xsane
+        - xsane-common
+        - exfalso
+        - parole
+        - xterm
+        - firefox-esr
+      state: absent
+
+  - name: UNINSTALL UNNECESSARY PACKAGES
+    apt:
+      autoremove: yes
+
+# GPG Cloudflared: https://pkg.cloudflare.com/index.html
+# GPG Google Chrome: https://www.google.com/linuxrepositories/
+# GPG Grafana: https://apt.grafana.com/
+# GPG Slack: https://slack.com/gpg/slack_pubkey_20240822.gpg

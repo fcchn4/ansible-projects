@@ -1,0 +1,346 @@
+- block:
+  - name: GET KERNEL VERSION
+    shell: uname -r
+    register: kernel_version_output
+
+  - debug: msg="{{ kernel_version_output.stdout }}"
+
+  - name: INSTALL PACKAGES AFTER UPDATES
+    apt:
+      name: 
+        - linux-headers-{{ kernel_version_output.stdout }}
+      state: latest
+
+  - name: INSTALL XFCE CUSTOMIZE
+    apt:
+      name:
+        - mugshot
+        - obsidian-icon-theme
+        - greybird-gtk-theme
+        - blackbird-gtk-theme
+        - elementary-xfce-icon-theme
+        - xfce4-screenshooter
+        - xfce4-clipman
+        - xfce4-clipman-plugin
+        - xfce4-cpufreq-plugin
+        - xfce4-cpugraph-plugin
+        - xfce4-indicator-plugin
+        - xfce4-mailwatch-plugin
+        - xfce4-netload-plugin
+        - xfce4-places-plugin
+        - xfce4-sensors-plugin
+        - xfce4-smartbookmark-plugin
+        - xfce4-systemload-plugin
+        - xfce4-taskmanager
+        - xfce4-timer-plugin
+        - xfce4-verve-plugin
+        - xfce4-weather-plugin
+        - xfce4-whiskermenu-plugin
+        - xfce4-xkb-plugin
+        - im-config
+        - blueman
+        - bluez
+        - bluetooth
+        - pulseaudio-module-bluetooth
+      state: latest    
+  
+  - name: INSTALL INTEL TOOLS AND SENSORS
+    apt:
+      name:
+        - intel-microcode
+        - intel-gpu-tools
+        - lm-sensors
+      state: latest
+
+  - name: INSTALL FIRMWARE META PACKAGES
+    apt:
+      name:
+        - firmware-linux
+        - firmware-linux-free
+        - firmware-linux-nonfree
+        - firmware-atheros
+        - firmware-bnx2
+        - firmware-bnx2x
+        - firmware-iwlwifi
+        - firmware-libertas
+        - firmware-realtek
+        - firmware-samsung 
+      state: latest
+
+  - name: PACKAGES COMPRESS AND UNCOMPRESS
+    apt:
+      name:
+        - bzip2
+        - zip
+        - unzip
+        - unace
+        - rar
+        - unace-nonfree
+        - p7zip
+        - p7zip-full
+        - p7zip-rar
+        - unrar
+        - unrar-free
+        - lzip
+        - lhasa
+        - arj
+        - sharutils
+        - mpack
+        - lzma
+        - lzop
+        - cabextract
+        - xz-utils
+        - fdupes
+      state: latest
+
+  - name: PC STATUS
+    apt:
+      name:
+        - acpi
+        - acpitool
+        - tuned
+        - tuned-gtk
+        - tuned-utils
+      state: latest
+
+  - name: EXTRA TOOLS
+    apt:
+      name:
+        - wget
+        - pv
+        - net-tools
+        - speedtest-cli
+        - tree
+        - locales
+        - ethtool
+        - mlocate
+        - hardinfo
+        - hwinfo
+        - tmux
+        - terminator
+        - pwgen
+        - inxi
+        - lshw
+        - translate-shell
+        - vim-scripts
+        - transmission
+        - cheese
+        - figlet
+        - keepassxc
+        - ranger
+        - network-manager-openvpn
+        - network-manager-openvpn-gnome
+        - network-manager-openconnect
+        - network-manager-openconnect-gnome
+        - software-properties-gtk
+        - thunderbird
+        - flameshot
+        - ulauncher
+      state: latest
+
+  - name: HDD TOOLS
+    apt:
+      name:
+        - gparted
+        - gpart
+        - parted
+        - ntfs-3g
+        - exfat-fuse
+        - exfatprogs
+        - gnome-disk-utility
+        - smartmontools
+      state: latest
+
+  - name: SSH SERVER
+    apt:
+      name:
+        - ssh
+        - rsync
+        - openssh-server
+        - openssh-client
+        - mosh
+        - putty
+        - putty-tools
+        - ssh-askpass
+        - ssh-askpass-gnome
+      state: latest
+
+  - name: FIREWALL
+    apt:
+      name: ufw
+      state: latest
+
+  - name: CODECS, SOUND AND VIDEO
+    apt:
+      name:
+        - vlc
+        - gstreamer1.0-libav
+        - gstreamer1.0-plugins-ugly
+        - gstreamer1.0-plugins-bad
+        - gstreamer1.0-pulseaudio
+        - vorbis-tools
+        - faac
+        - faad
+        - ffmpeg
+        - alsa-firmware-loaders
+        - alsa-oss
+        - alsa-tools
+        - alsa-utils
+        - mesa-utils
+        - mesa-utils-extra
+        - obs-studio
+        - obs-plugins
+      state: latest
+
+  - name: FONTS TYPOGRAPHICS
+    apt:
+      name:
+        - ttf-mscorefonts-installer
+        - fonts-freefont-ttf
+        - fonts-freefont-otf
+      state: latest
+
+  - name: GRAPHICS DESIGN
+    apt:
+      name:
+        - gimp
+        - gimp-data-extras
+        - inkscape
+        - inkscape-open-symbols
+        - inkscape-textext
+        - dia
+        - dia-rib-network
+        - dia-shapes
+        - dia-common
+        - peek
+        - optipng
+        - imagemagick
+        - markdown
+      state: latest
+
+  - name: PRINTES TOOLS
+    apt:
+      name:
+        - cups
+        - cups-core-drivers
+        - cups-filters
+        - cups-filters-core-drivers
+        - cups-ipp-utils
+        - hplip
+        - hplip-data
+      state: latest
+
+  - name: GOOGLE CHROME
+    apt:
+      deb: https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+
+  - name: PACKAGES FOR HOBBIES
+    apt:
+      name:
+        - ghex
+        - gqrx-sdr
+        - fritzing
+        - fritzing-parts
+        - arduino
+        - arduino-core
+      state: latest
+
+  - name: INSTALL VSCODE
+    apt:
+      name: code
+      state: latest
+
+  - name: TYPORA
+    apt:
+      name: typora
+      state: latest
+      
+  - name: PROGRAMMING LANGUAGE AND FRAMEWORKS
+    apt:
+      name:
+        - nodejs
+        - yarn
+        - golang
+        - jq
+        - yq
+        - yamllint
+        - pandoc
+        - default-jdk
+        - default-jre
+        - python3-virtualenv
+        - python3-pip
+      state: latest
+
+  - name: VIRTUALBOX
+    apt:
+      name: virtualbox-7.1
+      state: latest
+
+  - name: DOCKER CE
+    apt:
+      name:
+        - docker-ce
+        - docker-ce-cli
+        - containerd.io
+        - docker-buildx-plugin
+        - docker-compose-plugin
+      state: latest
+
+  - name: DEVOPS
+    apt:
+      name:
+        - vagrant
+        - terraform
+        - packer
+        - kubectl
+      state: latest
+
+  - name: SPOTIFY
+    apt:
+      name:
+        - spotify-client
+      state: latest
+
+  - name: ANSIBLE
+    apt:
+      name: ansible
+      state: latest
+
+  - name: DETECT AUTOMATIC SENSORS
+    shell: sensors-detect --auto
+
+  - name: ENABLE TUNED DAEMON
+    systemd:
+      name: tuned
+      state: started
+      enabled: yes
+
+  - name: ENABLE DAEMON DOCKER
+    systemd:
+      name: docker
+      state: started
+      enabled: yes
+
+  - name: ADD USER ON GROUPS
+    user:
+      name: "{{ debian_user }}"
+      #shell: /bin/bash
+      groups: adm,docker,input,vboxusers
+      append: yes
+
+  - name: CREATE FILE TERMINATOR
+    file:
+      path: /home/{{ debian_user }}/.config/terminator
+      state: directory
+      mode: "0775"
+      owner: "{{ debian_user }}"
+      group: "{{ debian_user }}"
+      recurse: yes
+
+  - name: ADD CONFIG FILE FOR TERMINATOR
+    template:
+      src: terminator-config
+      dest: /home/{{ debian_user }}/.config/terminator/config
+      owner: "{{ debian_user }}"
+      group: "{{ debian_user }}"
+      mode: "0664"

@@ -1,0 +1,15 @@
+---
+  - hosts: all
+    become: True
+    roles: 
+      - ubuntu-devops
+    vars:
+      ubuntu_user: USER_NAME
+      ubuntu_name: UBUNTU_NAME
+      ubuntu_host: IP_OR_DOMAIN
+      ubuntu_private_key_file: ~/.ssh/SSH_PRI_KEY
+      ubuntu_port: 22
+      ansible_python_interpreter: /usr/bin/python3
+
+# Ubuntu Available Name: jammy
+# For Ubuntu Kernel Version: $(uname -r)

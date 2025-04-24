@@ -1,0 +1,14 @@
+---
+  - hosts: all
+    become: True
+    roles: 
+      - debian-base
+    vars:
+      debian_user: DEBIAN_USER
+      debian_version: DEBIAN_VERSION
+      debian_host: IP_OR_DOMAIN
+      debian_private_key_file: ~/.ssh/SSH_PRI_KEY
+      debian_port: 22
+      ansible_python_interpreter: /usr/bin/python3
+
+# Debian Version Name: bookworm

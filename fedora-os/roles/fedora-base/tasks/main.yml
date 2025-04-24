@@ -1,0 +1,157 @@
+- block:
+    # Add Repositories
+    - name: WORKSTATION REPOS
+      dnf:
+        name: fedora-workstation-repositories
+        state: latest
+
+    - name: RPM FUSION FREE KEY
+      rpm_key:
+        key: https://rpmfusion.org/keys?action=AttachFile&do=get&target=RPM-GPG-KEY-rpmfusion-free-fedora-2020
+        fingerprint: E9A4 91A3 DE24 7814 E7E0 67EA E06F 8ECD D651 FF2E
+
+    - name: RPM FUSION NON-FREE KEY
+      rpm_key:
+        key: https://rpmfusion.org/keys?action=AttachFile&do=get&target=RPM-GPG-KEY-rpmfusion-nonfree-fedora-2020
+        fingerprint: 79BD B88F 9BBF 7391 0FD4 095B 6A2A F961 9484 3C65
+
+    - name: INSTALL RPM FUSION REPOS
+      dnf:
+        name:
+          - https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-{{ fedora_version }}.noarch.rpm
+          - https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-{{ fedora_version }}.noarch.rpm
+        state: present
+
+    - name: BRAVE KEY
+      rpm_key:
+        key: https://brave-browser-rpm-release.s3.brave.com/brave-core.asc
+        state: present
+
+    - name: BRAVE
+      yum_repository:
+        name: brave
+        description: Brave
+        baseurl: https://brave-browser-rpm-release.s3.brave.com/x86_64/
+
+    - name: VSCODE KEY
+      rpm_key:
+        key: https://packages.microsoft.com/keys/microsoft.asc
+        state: present
+
+    - name: VSCODE REPO FILE
+      shell: sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/vscode.repo'
+
+    - name: DOCKER
+      get_url:
+        url: https://download.docker.com/linux/fedora/docker-ce.repo
+        dest: /etc/yum.repos.d/docker-ce.repo
+
+    - name: REPO YARN
+      get_url:
+        url: https://dl.yarnpkg.com/rpm/yarn.repo
+        dest: /etc/yum.repos.d/yarn.repo
+
+    - name: POSTGRESQL KEY
+      rpm_key:
+        key: https://apt.postgresql.org/pub/repos/yum/RPM-GPG-KEY-PGDG-15
+        state: present
+
+    - name: POSGRESQL
+      dnf:
+        name:
+          - https://download.postgresql.org/pub/repos/yum/reporpms/F-{{ fedora_version }}-x86_64/pgdg-fedora-repo-latest.noarch.rpm
+        state: present
+
+    - name: HASHICORP
+      get_url:
+        url: https://rpm.releases.hashicorp.com/fedora/hashicorp.repo
+        dest: /etc/yum.repos.d/hashicorp.repo
+
+    - name: KUBERNETES REPO FILE
+      shell: sh -c 'echo -e "[kubernetes]\nname=Kubernetes\nbaseurl=https://pkgs.k8s.io/core:/stable:/v1.29/rpm/\nenabled=1\ngpgcheck=1\ngpgkey=https://pkgs.k8s.io/core:/stable:/v1.29/rpm/repodata/repomd.xml.key" > /etc/yum.repos.d/kubernetes.repo'
+
+    - name: OPENVPN3 COPR
+      dnf: enablerepo=dsommers/openvpn3
+
+    - name: JFROG KEY
+      rpm_key:
+        key: https://releases.jfrog.io/artifactory/jfrog-gpg-public/jfrog_public_gpg.key
+        state: present
+
+    - name: JFROG
+      template:
+        src: jfrog-cli.repo
+        dest: /etc/yum.repos.d/jfrog-cli.repo
+        owner: "root"
+        group: "root"
+        mode: "0644"
+
+    # Step for install and remove packages
+    - name: UPGRADE ALL PACKAGES
+      dnf:
+        name: "*"
+        state: latest
+
+    - name: INSTALL PACKAGES FOR KERNEL
+      dnf:
+        name:
+          - kernel-headers
+          - kernel-devel
+          - dnf-plugins-core
+        state: latest
+
+    - name: INSTALL PACKAGES GROUPS FOR OS
+      dnf:
+        name:
+          - "@Development Tools"
+          - "@Development Libraries"
+          - "@RPM Development Tools"
+        state: latest
+
+    - name: INSTALL USEFUL PACKAGES
+      dnf:
+        name:
+          - fedora-packager
+          - ulauncher
+          - xfce4-cpufreq-plugin
+          - xfce4-cpugraph-plugin
+          - xfce4-sensors-plugin
+          - elementary-xfce-icon-theme
+          - greybird-metacity-theme
+          - xfce4-settings
+          - f{{ fedora_version }}-backgrounds-xfce
+          - hunspell
+        state: latest
+
+    - name: UNINSTALL DEFAULT PACKAGES
+      dnf:
+        name:
+          - xfburn
+          - geany
+          - pidgin
+          - claws-mail
+          - asunder
+          - parole
+          - pragha
+          - gnumeric
+        state: absent
+
+    - name: EXECUTE AUTOREMOVE COMMAND
+      dnf:
+        autoremove: yes
+
+    - name: NEW FILE BASHRC
+      template:
+        src: bashrc-git-ps1-v3
+        dest: /home/{{ fedora_user }}/.bashrc
+        owner: "{{ fedora_user }}"
+        group: "{{ fedora_user }}"
+        mode: "0644"
+
+    - name: NEW FILE SUDO
+      template:
+        src: 010_user_nopasswd
+        dest: /etc/sudoers.d/010_{{ fedora_user }}_nopasswd
+        owner: "root"
+        group: "root"
+        mode: "0644"

@@ -1,0 +1,34 @@
+- block:
+  - name: FILE XFCE4-TERMINAL
+    file:
+      path: /home/{{ debian_user }}/.config/xfce4/terminal/
+      state: directory
+      mode: "0700"
+      owner: "{{ debian_user }}"
+      group: "{{ debian_user }}"
+      recurse: yes
+
+  - name: CONFIG FILE FOR XFCE4-TERMINAL
+    template:
+      src: terminalrc
+      dest: /home/{{ debian_user }}/.config/xfce4/terminal/terminalrc
+      owner: "{{ debian_user }}"
+      group: "{{ debian_user }}"
+      mode: "0644"
+
+  - name: CONFIG FILE FOR XFCE4-PANEL
+    template:
+      src: xfce4-panel.xml
+      dest: /home/{{ debian_user }}/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-panel.xml
+      owner: "{{ debian_user }}"
+      group: "{{ debian_user }}"
+      mode: "0644"
+
+  - name: XFCE4 XFCONF-QUERY
+    shell: |
+      xfconf-query -c xfce4-panel -p /panels/panel-2 -rR
+      xfconf-query -c xfce4-panel -p /panels -n -t int -a -s 1
+      xfconf-query -c xsettings -p /Net/ThemeName -s "Greybird-dark"
+      xfconf-query -c xsettings -p /Net/IconThemeName -s "elementary-xfce-dark"
+      xfconf-query -c xfwm4 -p /general/theme -s "Greybird-dark"
+      xfconf-query -c xfwm4 -p /general/workspace_count -n -t int -s 1
