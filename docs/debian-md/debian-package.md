@@ -2,16 +2,11 @@
 
 This document presents some important details about repository configurations and common package lists.
 
-## List Repositories
+## Debian Base Repositories List
 
 - [Debian Sources List](https://wiki.debian.org/SourcesList), with format **deb822**.
 - [Debian Multimedia](https://www.deb-multimedia.org/).
 
-
-## Multimedia Repository non-free
-```
-deb http://www.deb-multimedia.org buster main non-free
-``` 
 
 ## Debian Package Base
 

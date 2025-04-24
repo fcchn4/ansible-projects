@@ -42,6 +42,7 @@
         - bluez
         - bluetooth
         - pulseaudio-module-bluetooth
+        - lightdm-gtk-greeter-settings
       state: latest    
   
   - name: INSTALL INTEL TOOLS AND SENSORS
