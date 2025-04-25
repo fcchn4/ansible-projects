@@ -2,44 +2,6 @@
 
 This repository contains a list of packages for Fedora, Debian, and Ubuntu distributions. It only contains a long list of packages for some GNU/Linux distributions.
 
-## List
-
-- [Ubuntu Packages](ubuntu-software.md)
-
-## Ubuntu 20.04
-
-## Packages Extra no Included
-
-- [zoom](https://zoom.us/download#client_4meeting)
-- [slack](https://slack.com/intl/en-bo/downloads/linux)
-- [aws](https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2-linux.html#cliv2-linux-install)
-- [awless](https://github.com/wallix/awless/releases)
-- [helm](https://helm.sh/docs/intro/install/)
-- [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/)
-- [terraform](https://www.terraform.io/downloads.html)
-- [packer](https://learn.hashicorp.com/tutorials/packer/get-started-install-cli)
-- [assume-role](https://github.com/remind101/assume-role)
-- [doctl](https://github.com/digitalocean/doctl/releases)
-- [hugo](https://github.com/gohugoio/hugo/releases)
-- [ulauncher](https://ulauncher.io/#Download)
-- [brave-browser](https://brave.com/linux/#release-channel-installation)
-
-## List of Repositories
-
-### Ubuntu
-
-- Ubuntu Official
-- MariaDB
-- VirtualBox
-- Docker CE
-- Typora
-- VSCode
-- NodeJS
-- Yarn
-- Terraform
-- Postgresql
-- Kubectl
-
 ## Pre-Requisites
 
 First we must manually execute the following commands on the computer where the installation will take place:
@@ -66,18 +28,12 @@ The project have three playbooks:
 - ubuntu-desktop.yml
 - ubuntu-devops.yml
 
-## Versions
-
-- XFCE: 4.14.3
-- Ubuntu: 20.04 Focal
-- Ansible: 2.9
-
 ## Commands
 
 First we are located on the route:
 
 ```bash
-$ cd ansible-ubuntu
+$ cd ubuntu-os
 ```
 
 Execution order:

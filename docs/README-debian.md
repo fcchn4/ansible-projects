@@ -2,12 +2,6 @@
 
 This repository contains a list of packages for Debian. It only contains a long list of packages for some GNU/Linux distributions.
 
-## List
-
-- [Debian Packages](docs/debian-package.md)
-- [Extra Packages](docs/extra-package.md)
-- [Ansible Code Snippets](docs/package-install.md)
-
 ## Pre-Requisites
 
 First we must manually execute the following commands on the computer where the installation will take place:
@@ -25,26 +19,21 @@ $ ssh-copy-id -o PubkeyAuthentication=no -i ~/.ssh/demo-ssh.pub user_name@ip_add
 
 This ansible poroject is for automatic install on post-installation for Debian Operating System.
 
-## Config Files and replace values
+## Ansible Config Files
 
 The project have three playbooks:
 
 - debian-base.yml
 - debian-desktop.yml
 - debian-security.yml
-
-## Versions
-
-- XFCE: 4.18
-- Debian: 12 Bookworm
-- Ansible: 2.16
+- debian-xfce4.yml
 
 ## Commands
 
 First we are located on the route:
 
 ```bash
-$ cd ansible-debian
+$ cd debian-os
 ```
 
 Execution order:
@@ -52,8 +41,8 @@ Execution order:
 1. **debian-base.yml**:
 
 ```bash
-$ ansible-playbook debian-base.yml --ask-become-pass \
--i inventory/inventory.yml
+$ ansible-playbook debian-base.yml -i inventory/inventory.yml \
+--ask-become-pass
 ```
 
 2. **debian-desktop.yml**:

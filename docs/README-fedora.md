@@ -26,18 +26,12 @@ The project have three playbooks:
 - fedora-desktop.yml
 - fedora-security.yml
 
-## Versions
-
-- Ansible: 2.16.2
-- Fedora: 39
-- XFCE: 4.18.0
-
 ## Commands
 
 First we are located on the route:
 
 ```bash
-$ cd ansible-fedora
+$ cd fedora-os
 ```
 
 Execution order:
@@ -66,13 +60,3 @@ Exmaples flags for ansible command:
 --ask-become-pass # If you need sudo privileges, is necessary for fedora-base.yml
 -e "ansible_python_interpreter=/usr/bin/python3" # Specific Python version
 ```
-
-## Fedora
-
-- Fedora Offcial
-- RPM Fusion
-- [Fedora Packages](/details-md/app-list-official.md)
-
-## Extra Packages
-
-- [List Extra Packages](/details-md/app-list-extras.md)
