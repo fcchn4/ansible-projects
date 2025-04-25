@@ -10,6 +10,7 @@
 | [brave](https://brave.com/download/)                                                                                  |
 | [cntb-cli](https://github.com/contabo/cntb)                                                                           |
 | [cloudfrared](https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/downloads/)               |
+| [checkov](https://github.com/bridgecrewio/checkov/releases)                                                           |
 | [doctl](https://github.com/digitalocean/doctl)                                                                        |
 | [docker-ce debian](https://docs.docker.com/engine/install/debian/)                                                    |
 | [docker-ce ubuntu](https://docs.docker.com/engine/install/ubuntu/)                                                    |
