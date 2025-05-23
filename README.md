@@ -12,8 +12,8 @@ Project with different configurations to run on operating systems such as Debian
 ## Ansible Commands for OS
 
 - [Debian 12](docs/README-debian.md).
-- [Ubuntu 12](docs/README-ubuntu.md).
-- [Fedora 12](docs/README-fedora.md).
+- [Ubuntu 24.04](docs/README-ubuntu.md).
+- [Fedora 40](docs/README-fedora.md).
 
 ## Package List
 
