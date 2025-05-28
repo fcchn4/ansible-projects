@@ -131,6 +131,10 @@ if ! shopt -oq posix; then
 fi
 
 # Fcch Custom
+## Help Command
+## Update Bashrc
+## source $HOME/.zshrc (MAC OS) or source $HOME/.bashrc (distro GNU Linux)
+
 ## Alias for scripts
 ###alias fcch-demo='/path/script.sh'
 
@@ -176,6 +180,7 @@ export HISTTIMEFORMAT='%d-%m-%Y %T'
 
 ## Golang Dependences
 ###export GOPATH=$HOME/.go
+###export PATH=$PATH:$HOME/.go/bin
 
 ## Gradle
 ###export PATH=$PATH:/opt/gradle/bin
@@ -187,4 +192,3 @@ export HISTTIMEFORMAT='%d-%m-%Y %T'
 ## Local Binary (https://exercism.org/cli-walkthrough)
 ###export LEARN_BIN=$HOME/.learn-bin
 ###export PATH=$LEARN_BIN:$PATH
-
