@@ -130,18 +130,61 @@ if ! shopt -oq posix; then
   fi
 fi
 
-# AWS Cli
-export PATH=/usr/local/bin:$PATH
-complete -C '/usr/local/bin/aws_completer' aws
+# Fcch Custom
+## Alias for scripts
+###alias fcch-demo='/path/script.sh'
 
-# npm prefix
-export NPM_CONFIG_PREFIX=~/.npm-global
-
-# Default Ranger Editor
+## Default Ranger Editor
 export EDITOR=vim
 
-# Alias for scripts
-alias fcch-demo='/path/script.sh'
-
-# History Format
+## History Format
 export HISTTIMEFORMAT='%d-%m-%Y %T'
+
+## AWS Cli
+###export PATH=/usr/local/bin:$PATH
+###complete -C '/usr/local/bin/aws_completer' aws
+
+## npm prefix (https://blog.fcch.xyz/post/notes/npm-eacces/)
+###export NPM_CONFIG_PREFIX=~/.npm-global
+
+## Artifactory Jfrog completer
+###source /home/fcch/.jfrog/jfrog_bash_completion
+
+## Kubectl completer
+###source <(kubectl completion bash)
+
+## Qlik completer 
+###. <(qlik completion bash)
+
+## Contabo completer
+###source <(cntb completion bash)
+
+## Regula completer
+###source <(regula completion bash)
+
+## DOCtl completer
+###source <(doctl completion bash)
+
+## Trivy completer
+###source <(trivy completion bash)
+
+## Vagrant completer
+###. /opt/vagrant/embedded/gems/gems/vagrant-2.4.6/contrib/bash/completion.sh
+
+## Kustomize completer
+###source <(kustomize completion bash)
+
+## Golang Dependences
+###export GOPATH=$HOME/.go
+
+## Gradle
+###export PATH=$PATH:/opt/gradle/bin
+
+## Groovy Path
+###export GROOVY_HOME='/opt/groovy'
+###export PATH=$GROOVY_HOME/bin:$PATH
+
+## Local Binary (https://exercism.org/cli-walkthrough)
+###export LEARN_BIN=$HOME/.learn-bin
+###export PATH=$LEARN_BIN:$PATH
+
