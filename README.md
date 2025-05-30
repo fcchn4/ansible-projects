@@ -29,6 +29,6 @@ Project with different configurations to run on operating systems such as Debian
 
 - [App List Compatible](docs/packakes-extras.md).
 
-## Security Tools
+## Hobbies and Security Tools 
 
 - [App List Repositories](docs/sec-tools.md).
