@@ -120,100 +120,89 @@
         architectures: amd64
         components: contrib
 
-#  - name: KUBERNETES
-#    deb822_repository:
-#      name: kubernetes
-#      types: deb
-#      uris: https://pkgs.k8s.io/core:/stable:/v1.30/deb/
-#      suites: /
-#      signed_by: https://pkgs.k8s.io/core:/stable:/v1.30/deb/Release.key
-#      enabled: true
-#
-#  - name: HASHICORP
-#    deb822_repository:
-#      name: hashicorp
-#      types: deb
-#      uris: https://apt.releases.hashicorp.com
-#      suites: "{{ debian_version }}"
-#      signed_by: https://apt.releases.hashicorp.com/gpg
-#      enabled: true
-#      architectures:
-#        - amd64
-#      components:
-#        - main
-#
-#  - name: BRAVE-BROWSER
-#    deb822_repository:
-#      name: brave-browser
-#      types: deb
-#      uris: https://brave-browser-apt-release.s3.brave.com
-#      suites: stable
-#      signed_by: https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg
-#      enabled: true
-#      components:
-#        - main
-#
-#  - name: GOOGLE-CHROME
-#    deb822_repository:
-#      name: google-chrome
-#      types: deb
-#      uris: https://dl.google.com/linux/chrome/deb
-#      suites: stable
-#      signed_by: https://dl.google.com/linux/linux_signing_key.pub
-#      enabled: true
-#      architectures:
-#        - amd64
-#      components:
-#        - main
-#
-#  - name: CLOUDFLARED
-#    deb822_repository:
-#      name: cloudflared
-#      types: deb
-#      uris: https://pkg.cloudflare.com/cloudflared
-#      suites: any
-#      signed_by: https://pkg.cloudflare.com/cloudflare-main.gpg
-#      enabled: true
-#      architectures:
-#        - amd64
-#      components:
-#        - main
-#
-#  - name: GRAFANA
-#    deb822_repository:
-#      name: grafana
-#      types: deb
-#      uris: https://apt.grafana.com
-#      suites: stable
-#      signed_by: https://apt.grafana.com/gpg.key
-#      enabled: true
-#      components:
-#        - main
-#
-#  - name: MICROSOFT-EDGE
-#    deb822_repository:
-#      name: microsoft-edge
-#      types: deb
-#      uris: https://packages.microsoft.com/repos/edge
-#      suites: stable
-#      signed_by: https://packages.microsoft.com/keys/microsoft.asc
-#      enabled: true
-#      architectures:
-#        - amd64
-#      components:
-#        - main
-#
-#  - name: OPENVPN3
-#    deb822_repository:
-#      name: openvpn3
-#      types: deb
-#      uris: https://packages.openvpn.net/openvpn3/debian
-#      suites: "{{ debian_version }}"
-#      signed_by: https://packages.openvpn.net/packages-repo.gpg
-#      enabled: true
-#      components:
-#        - main
-#
+    - name: ADD KUBERNETES SOURCES
+      deb822_repository:
+        name: kubernetes
+        types: deb
+        uris: https://pkgs.k8s.io/core:/stable:/v1.35/deb/
+        suites: /
+        signed_by: https://pkgs.k8s.io/core:/stable:/v1.35/deb/Release.key
+        enabled: true
+
+    - name: ADD HASHICORP SOURCES
+      deb822_repository:
+        name: hashicorp
+        types: deb
+        uris: https://apt.releases.hashicorp.com
+        suites: "{{ debian_version }}"
+        signed_by: https://apt.releases.hashicorp.com/gpg
+        enabled: true
+        architectures: amd64
+        components: main
+
+    - name: ADD BRAVE-BROWSER SOURCES
+      deb822_repository:
+        name: brave-browser
+        types: deb
+        uris: https://brave-browser-apt-release.s3.brave.com
+        suites: stable
+        signed_by: https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg
+        enabled: true
+        components: main
+
+    - name: ADD GOOGLE-CHROME SOURCES
+      deb822_repository:
+        name: google-chrome
+        types: deb
+        uris: https://dl.google.com/linux/chrome/deb
+        suites: stable
+        signed_by: https://dl.google.com/linux/linux_signing_key.pub
+        enabled: true
+        architectures: amd64
+        components: main
+
+    - name: ADD CLOUDFLARED SOURCES
+      deb822_repository:
+        name: cloudflared
+        types: deb
+        uris: https://pkg.cloudflare.com/cloudflared
+        suites: any
+        signed_by: https://pkg.cloudflare.com/cloudflare-main.gpg
+        enabled: true
+        components: main
+
+    - name: ADD GRAFANA SOURCES
+      deb822_repository:
+        name: grafana
+        types: deb
+        uris: https://apt.grafana.com
+        suites: stable
+        signed_by: https://apt.grafana.com/gpg-full.key
+        enabled: true
+        components: main
+
+    - name: ADD MICROSOFT-EDGE SOURCES
+      deb822_repository:
+        name: microsoft-edge
+        types: deb
+        uris: https://packages.microsoft.com/repos/edge
+        suites: stable
+        signed_by: https://packages.microsoft.com/keys/microsoft-2025.asc
+        enabled: true
+        architectures: amd64
+        components: main
+
+    - name: ADD OPENVPN3 SOURCES
+      deb822_repository:
+        name: openvpn3
+        types: deb
+        uris: https://packages.openvpn.net/openvpn3/debian
+        suites: "{{ debian_version }}"
+        signed_by: https://packages.openvpn.net/packages-repo.gpg
+        enabled: true
+        components:
+          - main
+
 #  - name: POSTGRESQL
 #    deb822_repository:
 #      name: pgdg
