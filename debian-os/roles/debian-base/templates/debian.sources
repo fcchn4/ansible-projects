@@ -1,4 +1,3 @@
-# Debian 12 format deb822
 Types: deb deb-src
 URIs: https://deb.debian.org/debian
 Suites: {{ debian_version }} {{ debian_version }}-updates {{ debian_version }}-backports
