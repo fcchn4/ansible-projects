@@ -10,5 +10,3 @@
       debian_private_key_file: ~/.ssh/SSH_PRI_KEY
       debian_port: 22
       ansible_python_interpreter: /usr/bin/python3
-
-# Debian Version Name: bookworm
