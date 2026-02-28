@@ -119,7 +119,7 @@
         enabled: true
         architectures: amd64
         components: contrib
-        
+
 #  - name: KUBERNETES
 #    deb822_repository:
 #      name: kubernetes
@@ -136,19 +136,6 @@
 #      uris: https://apt.releases.hashicorp.com
 #      suites: "{{ debian_version }}"
 #      signed_by: https://apt.releases.hashicorp.com/gpg
-#      enabled: true
-#      architectures:
-#        - amd64
-#      components:
-#        - main
-#
-#  - name: AZURE-CLI
-#    deb822_repository:
-#      name: azure-cli
-#      types: deb
-#      uris: https://packages.microsoft.com/repos/azure-cli
-#      suites: "{{ debian_version }}"
-#      signed_by: https://packages.microsoft.com/keys/microsoft.asc
 #      enabled: true
 #      architectures:
 #        - amd64
@@ -250,17 +237,6 @@
 #        - amd64
 #      components:
 #        - main
-#
-#  - name: SYNCTHING
-#    deb822_repository:
-#      name: sincthing
-#      types: deb
-#      uris: https://apt.syncthing.net
-#      suites: syncthing
-#      signed_by: https://syncthing.net/release-key.gpg
-#      enabled: true
-#      components:
-#        - stable
 #
 #  - name: TRIVY
 #    deb822_repository:
