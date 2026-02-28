@@ -1,3 +1,69 @@
+# Optional Repository List
+
+- OpenVPN3 Client
+
+Package native on Debian repositories: openvpn3-client
+
+```yaml
+    - name: ADD OPENVPN3 SOURCES
+      deb822_repository:
+        name: openvpn3
+        types: deb
+        uris: https://packages.openvpn.net/openvpn3/debian
+        suites: "{{ debian_version }}"
+        signed_by: https://packages.openvpn.net/packages-repo.gpg
+        enabled: true
+        components:
+          - main
+```
+
+- Azure CLI
+
+```yaml
+    - name: AZURE-CLI
+      deb822_repository:
+        name: azure-cli
+        types: deb
+        uris: https://packages.microsoft.com/repos/azure-cli
+        suites: "{{ debian_version }}"
+        signed_by: https://packages.microsoft.com/keys/microsoft.asc
+        enabled: true
+        architectures:
+          - amd64
+        components:
+          - main
+```
+
+- Syncthing
+
+```yaml
+    - name: SYNCTHING
+      deb822_repository:
+        name: sincthing
+        types: deb
+        uris: https://apt.syncthing.net
+        suites: syncthing
+        signed_by: https://syncthing.net/release-key.gpg
+        enabled: true
+        components:
+          - stable
+```
+
+- Signal
+
+```yaml
+    - name: ADD SIGNAL SOURCES
+      deb822_repository:
+        name: signal
+        types: deb
+        uris: https://updates.signal.org/desktop/apt
+        suites: xenial
+        signed_by: https://updates.signal.org/desktop/apt/keys.asc
+        enabled: true
+        architectures: amd64
+        components: main
+```
+
 # Optional Packages
 
 - KVM

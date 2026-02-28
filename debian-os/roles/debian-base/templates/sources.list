@@ -1,6 +1,0 @@
-# This system was installed using removable media other than
-# CD/DVD/BD (e.g. USB stick, SD card, ISO image file).
-# The matching "deb cdrom" entries were disabled at the end
-# of the installation process.
-# For information about how to configure apt package sources,
-# see the sources.list(5) manual.
