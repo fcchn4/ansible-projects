@@ -7,6 +7,7 @@
           - deb-src
         uris: https://deb.debian.org/debian
         suites: "{{ debian_version }} {{ debian_version }}-updates {{ debian_version }}-backports"
+        signed_by: /usr/share/keyrings/debian-archive-keyring.gpg
         enabled: true
         components:
           - main
@@ -22,6 +23,7 @@
           - deb-src
         uris: https://security.debian.org/debian-security
         suites: "{{ debian_version }}-security"
+        signed_by: /usr/share/keyrings/debian-archive-keyring.gpg
         enabled: true
         components:
           - main
@@ -44,6 +46,7 @@
         types: deb
         uris: https://www.deb-multimedia.org
         suites: "{{ debian_version }}"
+        signed_by: /usr/share/keyrings/deb-multimedia-keyring.pgp
         enabled: true
         components:
           - main
@@ -75,9 +78,10 @@
         name: nodejs
         types: deb
         uris: https://deb.nodesource.com/node_24.x
-        suites: "{{ debian_version }}"
+        suites: nodistro
         signed_by: https://deb.nodesource.com/gpgkey/nodesource.gpg.key
         enabled: true
+        architectures: amd64
         components: main
 
     - name: ADD DOCKER-CE SOURCES
@@ -148,7 +152,7 @@
         types: deb
         uris: https://packages.microsoft.com/repos/edge
         suites: stable
-        signed_by: https://packages.microsoft.com/keys/microsoft-2025.asc
+        signed_by: https://packages.microsoft.com/keys/microsoft.asc
         enabled: true
         architectures: amd64
         components: main
@@ -161,7 +165,7 @@
         suites: mozilla
         signed_by: https://packages.mozilla.org/apt/repo-signing-key.gpg
         enabled: true
-        components: main        
+        components: main
 
     - name: ADD CLOUDFLARED SOURCES
       deb822_repository:
@@ -252,7 +256,7 @@
         types: deb
         uris: https://ppa.launchpadcontent.net/agornostal/ulauncher/ubuntu
         suites: noble
-        enabled: true
+        enabled: false
         components:
           - main
         signed_by: |-
@@ -285,6 +289,15 @@
           =E6TL
           -----END PGP PUBLIC KEY BLOCK-----
 
+    - name: DOWNLOAD ULAUNCHER PACKAGE
+      ansible.builtin.get_url:
+        url: https://github.com/Ulauncher/Ulauncher/releases/download/5.15.15/ulauncher_5.15.15_all.deb
+        dest: /tmp/ulauncher_5.15.15_all.deb
+
+    - name: INSTALL INSTALL ULAUNCHER PACKAGE
+      ansible.builtin.apt:
+        deb: /tmp/ulauncher_5.15.15_all.deb
+
     - name: SUDO NOPASSWD
       ansible.builtin.copy:
         content: "{{ debian_user }} ALL=(ALL) NOPASSWD:ALL"
@@ -299,62 +312,40 @@
         dest: /etc/apt/sources.list
         mode: "0644"
 
-#  - name: CUSTOM BASHRC
-#    template:
-#      src: bashrc
-#      dest: .bashrc
-#      owner: "{{ debian_user }}"
-#      group: "{{ debian_user }}"
-#      mode: "0644"
-#
-#  - name: UPDATE CACHE
-#    apt:
-#      update_cache: yes
-#      cache_valid_time: 3600
-#
-#  - name: UPGRADE ALL PACKAGES
-#    apt:
-#      name: "*"
-#      state: latest
-#
-#  - name: INSTALL PACKAGES BASICS
-#    apt:
-#      name:
-#        - apt-transport-https
-#        - ca-certificates
-#        - curl
-#        - wget
-#        - gnupg
-#        - gnupg-agent
-#        - lsb-release
-#        - vim
-#        - build-essential
-#        - checkinstall
-#        - make
-#        - automake
-#        - autoconf
-#        - dkms
-#        - git
-#        - dirmngr
-#        - software-properties-common
-#        - debsig-verify
-#      state: latest
-#
-#  - name: UNINSTALL DEFAULT PACKAGES
-#    apt:
-#      name:
-#        - vim-tiny
-#        - xsane
-#        - xsane-common
-#        - exfalso
-#        - parole
-#        - xterm
-#        - firefox-esr
-#      state: absent
-#
-#  - name: UNINSTALL UNNECESSARY PACKAGES
-#    apt:
-#      autoremove: yes
+    - name: ADD CUSTOM BASHRC
+      template:
+        src: bashrc
+        dest: .bashrc
+        owner: "{{ debian_user }}"
+        group: "{{ debian_user }}"
+        mode: "0644"
+
+    - name: UPDATE CACHE
+      apt:
+        update_cache: yes
+        cache_valid_time: 3600
+
+    - name: UPGRADE ALL PACKAGES
+      apt:
+        name: "*"
+        state: latest
+
+    - name: UNINSTALL DEFAULT PACKAGES
+      apt:
+        name:
+          - vim-tiny
+          - xsane
+          - xsane-common
+          - exfalso
+          - parole
+          - xterm
+          - xfburn
+          - firefox-esr
+        state: absent
+
+    - name: UNINSTALL UNNECESSARY PACKAGES
+      apt:
+        autoremove: yes
 
 # GPG Cloudflared: https://pkg.cloudflare.com/index.html
 # GPG Google Chrome: https://www.google.com/linuxrepositories/
