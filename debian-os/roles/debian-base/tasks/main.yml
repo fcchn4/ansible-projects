@@ -1,144 +1,130 @@
 - block:
-  - name: ADD SOURCES FILE
-    template:
-      src: sources.list
-      dest: /etc/apt/sources.list
-      owner: "root"
-      group: "root"
-      mode: "0644"
+    - name: EMPTY FILE SOURCES LIST
+      template:
+        src: sources.list
+        dest: /etc/apt/sources.list
+        owner: "root"
+        group: "root"
+        mode: "0644"
 
-#  - name: ADD DEBIAN SOURCES
-#    template:
-#      src: debian.sources
-#      dest: /etc/apt/sources.list.d/
-#      owner: "root"
-#      group: "root"
-#      mode: "0644"
-#
-#  - name: CUSTOM BASHRC
-#    template:
-#      src: bashrc
-#      dest: .bashrc
-#      owner: "{{ debian_user }}"
-#      group: "{{ debian_user }}"
-#      mode: "0644"
-#
-#  - name: SUDO NOPASSWD
-#    template:
-#      src: 010_user_nopasswd
-#      dest: /etc/sudoers.d/010_user_nopasswd
-#      owner: "root"
-#      group: "root"
-#      mode: "0644"      
-#
-#  - name: DOWNLOAD GPG DEB-MULTIMEDIA
-#    ansible.builtin.get_url:
-#      url: https://www.deb-multimedia.org/pool/main/d/deb-multimedia-keyring/deb-multimedia-keyring_2024.9.1_all.deb
-#      dest: /tmp/deb-multimedia-keyring.deb
-#
-#  - name: INSTALL GPG DEB-MULTIMEDIA
-#    ansible.builtin.apt:
-#      deb: /tmp/deb-multimedia-keyring.deb
-#
-#  - name: DEB-MULTIMEDIA
-#    deb822_repository:
-#      name: deb-multimedia
-#      types: deb
-#      uris: https://www.deb-multimedia.org
-#      suites: "{{ debian_version }}"
-#      enabled: true
-#      components:
-#        - main
-#        - non-free
-#      architectures:
-#        - amd64
-#
-#  - name: SPOTIFY
-#    deb822_repository:
-#      name: spotify
-#      types: deb
-#      uris: https://repository.spotify.com
-#      suites: stable
-#      signed_by: https://download.spotify.com/debian/pubkey_C85668DF69375001.gpg
-#      enabled: true
-#      components:
-#        - non-free
-#
-#  - name: TYPORA
-#    deb822_repository:
-#      name: typora
-#      types: deb
-#      uris: https://typora.io/linux
-#      suites: ./
-#      signed_by: https://typora.io/linux/public-key.asc
-#      enabled: true
-#
-#  - name: VSCODE
-#    deb822_repository:
-#      name: vscode
-#      types: deb
-#      uris: https://packages.microsoft.com/repos/code
-#      suites: stable
-#      signed_by: https://packages.microsoft.com/keys/microsoft.asc
-#      enabled: true
-#      architectures:
-#        - amd64
-#      components:
-#        - main
-#
-#  - name: NODEJS
-#    deb822_repository:
-#      name: nodejs
-#      types: deb
-#      uris: https://deb.nodesource.com/node_18.x
-#      suites: "{{ debian_version }}"
-#      signed_by: https://deb.nodesource.com/gpgkey/nodesource.gpg.key
-#      enabled: true
-#      components:
-#        - main
-#
-#  - name: YARN
-#    deb822_repository:
-#      name: yarn
-#      types: deb
-#      uris: https://dl.yarnpkg.com/debian
-#      suites: stable
-#      signed_by: https://dl.yarnpkg.com/debian/pubkey.gpg
-#      enabled: true
-#      components:
-#        - main
-#
-#  - name: DOCKER-CE
-#    deb822_repository:
-#      name: docker
-#      types: deb
-#      uris: https://download.docker.com/linux/debian
-#      suites: "{{ debian_version }}"
-#      signed_by: https://download.docker.com/linux/debian/gpg
-#      enabled: true
-#      architectures:
-#        - amd64
-#      components:
-#        - stable
-#
-#  - name: VIRTUALBOX
-#    deb822_repository:
-#      name: virtualbox
-#      types: deb
-#      uris: https://download.virtualbox.org/virtualbox/debian
-#      suites: "{{ debian_version }}"
-#      signed_by: https://www.virtualbox.org/download/oracle_vbox_2016.asc
-#      enabled: true
-#      architectures:
-#        - amd64
-#      components:
-#        - contrib
-#
+    - name: ADD DEBIAN BASE SOURCES
+      deb822_repository:
+        name: debian
+        types:
+          - deb
+          - deb-src
+        uris: https://deb.debian.org/debian
+        suites: "{{ debian_version }} {{ debian_version }}-updates {{ debian_version }}-backports"
+        enabled: true
+        components:
+          - main
+          - contrib
+          - non-free
+          - non-free-firmware
+
+    - name: ADD DEBIAN BASE SECURITY SOURCES
+      deb822_repository:
+        name: debian-security
+        types:
+          - deb
+          - deb-src
+        uris: https://security.debian.org/debian-security
+        suites: "{{ debian_version }}-security"
+        enabled: true
+        components:
+          - main
+          - contrib
+          - non-free
+          - non-free-firmware
+
+    - name: DOWNLOAD GPG DEB-MULTIMEDIA
+      ansible.builtin.get_url:
+        url: https://www.deb-multimedia.org/pool/main/d/deb-multimedia-keyring/deb-multimedia-keyring_2024.9.1_all.deb
+        dest: /tmp/deb-multimedia-keyring.deb
+
+    - name: INSTALL GPG DEB-MULTIMEDIA
+      ansible.builtin.apt:
+        deb: /tmp/deb-multimedia-keyring.deb
+
+    - name: ADD DEB-MULTIMEDIA SOURCES
+      deb822_repository:
+        name: deb-multimedia
+        types: deb
+        uris: https://www.deb-multimedia.org
+        suites: "{{ debian_version }}"
+        enabled: true
+        components:
+          - main
+          - non-free
+        architectures:
+          - amd64
+
+    - name: ADD SPOTIFY CLIENT SOURCES
+      deb822_repository:
+        name: spotify
+        types: deb
+        uris: https://repository.spotify.com
+        suites: stable
+        signed_by: https://download.spotify.com/debian/pubkey_5384CE82BA52C83A.asc
+        enabled: true
+        components: non-free
+
+    - name: ADD TYPORA SOURCES
+      deb822_repository:
+        name: typora
+        types: deb
+        uris: https://typora.io/linux
+        suites: ./
+        signed_by: https://downloads.typora.io/typora.gpg
+        enabled: true
+
+    - name: ADD VSCODE SOURCES
+      deb822_repository:
+        name: vscode
+        types: deb
+        uris: https://packages.microsoft.com/repos/code
+        suites: stable
+        signed_by: https://packages.microsoft.com/keys/microsoft.asc
+        enabled: true
+        architectures: amd64
+        components: main
+
+    - name: ADD NODEJS SOURCES
+      deb822_repository:
+        name: nodejs
+        types: deb
+        uris: https://deb.nodesource.com/node_24.x
+        suites: "{{ debian_version }}"
+        signed_by: https://deb.nodesource.com/gpgkey/nodesource.gpg.key
+        enabled: true
+        components: main
+
+    - name: ADD DOCKER-CE SOURCES
+      deb822_repository:
+        name: docker
+        types: deb
+        uris: https://download.docker.com/linux/debian
+        suites: "{{ debian_version }}"
+        signed_by: https://download.docker.com/linux/debian/gpg
+        enabled: true
+        components: stable
+
+    - name: ADD VIRTUALBOX SOURCES
+      deb822_repository:
+        name: virtualbox
+        types: deb
+        uris: https://download.virtualbox.org/virtualbox/debian
+        suites: "{{ debian_version }}"
+        signed_by: https://www.virtualbox.org/download/oracle_vbox_2016.asc
+        enabled: true
+        architectures: amd64
+        components: contrib
+        
 #  - name: KUBERNETES
 #    deb822_repository:
 #      name: kubernetes
 #      types: deb
-#      uris: https://pkgs.k8s.io/core:/stable:/v1.30/deb/ 
+#      uris: https://pkgs.k8s.io/core:/stable:/v1.30/deb/
 #      suites: /
 #      signed_by: https://pkgs.k8s.io/core:/stable:/v1.30/deb/Release.key
 #      enabled: true
@@ -212,7 +198,7 @@
 #      types: deb
 #      uris: https://apt.grafana.com
 #      suites: stable
-#      signed_by: https://apt.grafana.com/gpg.key 
+#      signed_by: https://apt.grafana.com/gpg.key
 #      enabled: true
 #      components:
 #        - main
@@ -374,6 +360,22 @@
 #  - name: UNINSTALL UNNECESSARY PACKAGES
 #    apt:
 #      autoremove: yes
+#
+#  - name: CUSTOM BASHRC
+#    template:
+#      src: bashrc
+#      dest: .bashrc
+#      owner: "{{ debian_user }}"
+#      group: "{{ debian_user }}"
+#      mode: "0644"
+#
+#  - name: SUDO NOPASSWD
+#    template:
+#      src: 010_user_nopasswd
+#      dest: /etc/sudoers.d/010_user_nopasswd
+#      owner: "root"
+#      group: "root"
+#      mode: "0644"
 
 # GPG Cloudflared: https://pkg.cloudflare.com/index.html
 # GPG Google Chrome: https://www.google.com/linuxrepositories/
