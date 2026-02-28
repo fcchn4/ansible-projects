@@ -30,7 +30,7 @@
         state: latest
 
     - name: INSTALL XFCE CUSTOMIZE
-      apt:
+      ansible.builtin.apt:
         name:
           - xfce4-battery-plugin
           - xfce4-clipman
@@ -70,7 +70,7 @@
         state: latest
 
     - name: INSTALL INTEL TOOLS AND SENSORS
-      apt:
+      ansible.builtin.apt:
         name:
           - intel-microcode
           - intel-gpu-tools
@@ -78,7 +78,7 @@
         state: latest
 
     - name: INSTALL FIRMWARE META PACKAGES
-      apt:
+      ansible.builtin.apt:
         name:
           - firmware-linux
           - firmware-linux-free
@@ -97,7 +97,7 @@
         state: latest
 
     - name: INSTALL PACKAGES COMPRESS AND UNCOMPRESS
-      apt:
+      ansible.builtin.apt:
         name:
           - bzip2
           - zip
@@ -115,7 +115,7 @@
         state: latest
 
     - name: INSTALL PC TOOL STATUS
-      apt:
+      ansible.builtin.apt:
         name:
           - acpi
           - acpitool
@@ -125,7 +125,7 @@
         state: latest
 
     - name: INSTALL EXTRA TOOLS
-      apt:
+      ansible.builtin.apt:
         name:
           - pv
           - net-tools
@@ -165,7 +165,7 @@
         state: latest
 
     - name: INSTALL HDD TOOLS
-      apt:
+      ansible.builtin.apt:
         name:
           - gparted
           - gpart
@@ -178,7 +178,7 @@
         state: latest
 
     - name: INSTALL SSH SERVER
-      apt:
+      ansible.builtin.apt:
         name:
           - ssh
           - rsync
@@ -192,18 +192,19 @@
         state: latest
 
     - name: INSTALL FIREWALL
-      apt:
+      ansible.builtin.apt:
         name: ufw
         state: latest
 
     - name: INSTALL CODECS, SOUND AND VIDEO
-      apt:
+      ansible.builtin.apt:
         name:
           - vlc
           - faac
           - faad
           - ffmpeg
           - vorbis-tools
+          - spotify-client
           - gstreamer1.0-libav
           - gstreamer1.0-plugins-ugly
           - gstreamer1.0-plugins-bad
@@ -215,156 +216,144 @@
           - obs-plugins
         state: latest
 
-#    - name: FONTS TYPOGRAPHICS
-#      apt:
-#        name:
-#          - ttf-mscorefonts-installer
-#          - fonts-freefont-ttf
-#          - fonts-freefont-otf
-#        state: latest
-#
-#    - name: GRAPHICS DESIGN
-#      apt:
-#        name:
-#          - gimp
-#          - gimp-data-extras
-#          - inkscape
-#          - inkscape-open-symbols
-#          - inkscape-textext
-#          - dia
-#          - dia-rib-network
-#          - dia-shapes
-#          - dia-common
-#          - peek
-#          - optipng
-#          - imagemagick
-#          - markdown
-#        state: latest
-#
-#    - name: PRINTES TOOLS
-#      apt:
-#        name:
-#          - cups
-#          - cups-core-drivers
-#          - cups-filters
-#          - cups-filters-core-drivers
-#          - cups-ipp-utils
-#          - hplip
-#          - hplip-data
-#        state: latest
-#
-#    - name: GOOGLE CHROME
-#      apt:
-#        deb: https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-#
-#    - name: PACKAGES FOR HOBBIES
-#      apt:
-#        name:
-#          - ghex
-#          - gqrx-sdr
-#          - fritzing
-#          - fritzing-parts
-#          - arduino
-#          - arduino-core
-#        state: latest
-#
-#    - name: INSTALL VSCODE
-#      apt:
-#        name: code
-#        state: latest
-#
-#    - name: TYPORA
-#      apt:
-#        name: typora
-#        state: latest
-#
-#    - name: PROGRAMMING LANGUAGE AND FRAMEWORKS
-#      apt:
-#        name:
-#          - nodejs
-#          - yarn
-#          - golang
-#          - jq
-#          - yq
-#          - yamllint
-#          - pandoc
-#          - default-jdk
-#          - default-jre
-#          - python3-virtualenv
-#          - python3-pip
-#        state: latest
-#
-#    - name: VIRTUALBOX
-#      apt:
-#        name: virtualbox-7.1
-#        state: latest
-#
-#    - name: DOCKER CE
-#      apt:
-#        name:
-#          - docker-ce
-#          - docker-ce-cli
-#          - containerd.io
-#          - docker-buildx-plugin
-#          - docker-compose-plugin
-#        state: latest
-#
-#    - name: DEVOPS
-#      apt:
-#        name:
-#          - vagrant
-#          - terraform
-#          - packer
-#          - kubectl
-#        state: latest
-#
-#    - name: SPOTIFY
-#      apt:
-#        name:
-#          - spotify-client
-#        state: latest
-#
-#    - name: ANSIBLE
-#      apt:
-#        name: ansible
-#        state: latest
-#
-#    - name: DETECT AUTOMATIC SENSORS
-#      shell: sensors-detect --auto
-#
-#    - name: ENABLE TUNED DAEMON
-#      systemd:
-#        name: tuned
-#        state: started
-#        enabled: yes
-#
-#    - name: ENABLE DAEMON DOCKER
-#      systemd:
-#        name: docker
-#        state: started
-#        enabled: yes
-#
-#    - name: ADD USER ON GROUPS
-#      user:
-#        name: "{{ debian_user }}"
-#        #shell: /bin/bash
-#        groups: adm,docker,input,vboxusers
-#        append: yes
-#
-#    - name: CREATE FILE TERMINATOR
-#      file:
-#        path: /home/{{ debian_user }}/.config/terminator
-#        state: directory
-#        mode: "0775"
-#        owner: "{{ debian_user }}"
-#        group: "{{ debian_user }}"
-#        recurse: yes
-#
-#    - name: ADD CONFIG FILE FOR TERMINATOR
-#      template:
-#        src: terminator-config
-#        dest: /home/{{ debian_user }}/.config/terminator/config
-#        owner: "{{ debian_user }}"
-#        group: "{{ debian_user }}"
-#        mode: "0664"
-#
+    - name: INSTALL FONTS TYPOGRAPHICS
+      ansible.builtin.apt:
+        name:
+          - fonts-freefont-ttf
+          - fonts-freefont-otf
+        state: latest
+
+    - name: INSTALL GRAPHICS DESIGN
+      ansible.builtin.apt:
+        name:
+          - gimp
+          - gimp-data-extras
+          - inkscape
+          - inkscape-open-symbols
+          - inkscape-textext
+          - dia
+          - dia-rib-network
+          - dia-shapes
+          - dia-common
+          - peek
+          - optipng
+          - imagemagick
+          - markdown
+        state: latest
+
+    - name: INSTALL PRINTES TOOLS
+      ansible.builtin.apt:
+        name:
+          - cups
+          - cups-core-drivers
+          - cups-filters
+          - cups-filters-core-drivers
+          - cups-ipp-utils
+          - hplip
+          - hplip-data
+        state: latest
+
+    - name: INSTALL WEB BROWSERS
+      ansible.builtin.apt:
+        name:
+          - firefox
+          - brave-browser
+          - google-chrome-stable
+        state: latest
+
+    - name: INSTALL PACKAGES FOR HOBBIES
+      ansible.builtin.apt:
+        name:
+          - ghex
+          - gqrx-sdr
+          - arduino
+        state: latest
+
+    - name: INSTALL IDE AND CODE EDITORS
+      ansible.builtin.apt:
+        name:
+          - code
+          - cursor
+        state: latest
+
+    - name: INSTALL TYPORA
+      ansible.builtin.apt:
+        name: typora
+        state: latest
+
+    - name: INSTALL PROGRAMMING LANGUAGE AND FRAMEWORKS
+      ansible.builtin.apt:
+        name:
+          - nodejs
+          - golang
+          - jq
+          - yq
+          - yamllint
+          - pandoc
+          - default-jdk
+          - python3-virtualenv
+          - python3-pip
+        state: latest
+
+    - name: INSTALL VIRTUALBOX
+      ansible.builtin.apt:
+        name: virtualbox-7.1
+        state: latest
+
+    - name: INSTALL DOCKER CE
+      ansible.builtin.apt:
+        name:
+          - docker-ce
+          - docker-ce-cli
+          - containerd.io
+          - docker-buildx-plugin
+          - docker-compose-plugin
+        state: latest
+
+    - name: InSTALL DEVOPS TOOLS
+      ansible.builtin.apt:
+        name:
+          - ansible
+          - vagrant
+          - terraform
+          - packer
+          - kubectl
+        state: latest
+
+    - name: DETECT AUTOMATIC SENSORS
+      ansible.builtin.shell: sensors-detect --auto
+
+    - name: ENABLE TUNED DAEMON
+      ansible.builtin.systemd:
+        name: tuned
+        state: started
+        enabled: yes
+
+    - name: ENABLE DAEMON DOCKER
+      ansible.builtin.systemd:
+        name: docker
+        state: started
+        enabled: yes
+
+    - name: ADD USER ON GROUPS
+      ansible.builtin.user:
+        name: "{{ debian_user }}"
+        groups: adm,docker,input,vboxusers
+        append: yes
+
+    - name: CREATE FILE TERMINATOR
+      ansible.builtin.file:
+        path: /home/{{ debian_user }}/.config/terminator
+        state: directory
+        mode: "0775"
+        owner: "{{ debian_user }}"
+        group: "{{ debian_user }}"
+        recurse: yes
+
+    - name: ADD CONFIG FILE FOR TERMINATOR
+      ansible.builtin.template:
+        src: terminator-config
+        dest: /home/{{ debian_user }}/.config/terminator/config
+        owner: "{{ debian_user }}"
+        group: "{{ debian_user }}"
+        mode: "0664"
