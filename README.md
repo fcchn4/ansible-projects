@@ -4,20 +4,20 @@ Project with different configurations to run on operating systems such as Debian
 
 ## Versions
 
-- Debian 12, XFCE 4.18
+- Debian 13, XFCE 4.20
 - Ubuntu 24.04 LTS, XFCE 4.18
 - Fedora 40, XFCE 4.20
 - Ansible 2.16.3
 
 ## Ansible Commands for OS
 
-- [Debian 12](docs/README-debian.md).
+- [Debian 13](docs/README-debian.md).
 - [Ubuntu 24.04](docs/README-ubuntu.md).
 - [Fedora 40](docs/README-fedora.md).
 
 ## Package List
 
-- [Debian 12 List](docs/debian-md/debian-packages.md).
+- [Debian 13 List](docs/debian-md/debian-packages.md).
 - [Ubuntu 24.04 List](docs/ubuntu-md/ubuntu-packages.md).
 - [Fedora 40 List](docs/fedora-md/fedora-packages.md).
 
