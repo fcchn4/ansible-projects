@@ -342,6 +342,7 @@
           - xfburn
           - firefox-esr
           - light-locker
+          - ayatana-indicator-application
         state: absent
 
     - name: UNINSTALL UNNECESSARY PACKAGES
