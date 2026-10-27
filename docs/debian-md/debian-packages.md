@@ -220,7 +220,7 @@ $ sudo adduser $(whoami) kvm
 - Additional Packages.
 
 ```text
-    ghex
+    hexwalk
     gqrx-sdr
     peek
     stegosuite

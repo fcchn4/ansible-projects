@@ -142,7 +142,7 @@ dnf install -y torbrowser-launcher torsocks tor
 dnf install -y pv youtube-dl dkms axel android-tools Zim zsh smartmontools speedtest-cli gd glances \
 golang putty pwgen rdesktop sl transmission hexchat intltool iotop itop keepassxc lua telegram-desktop \
 testssl tmux terminator sqlitebrowser fdupes figlet mediainfo mediainfo-gui pdfmod httpd-tools \
-httrack linkchecker ghex gqrx perl-Image-ExifTool glade python3-virtualenv
+httrack linkchecker hexwalk gqrx perl-Image-ExifTool glade python3-virtualenv
 
 ## Remote Desktop and VNC
 dnf install -y vinagre vino

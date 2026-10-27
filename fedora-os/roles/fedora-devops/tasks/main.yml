@@ -8,7 +8,7 @@
         - httpd-tools
         - httrack
         - linkchecker
-        - ghex
+        - hexwalk
         - testssl
         - perl-Image-ExifTool
         - fping

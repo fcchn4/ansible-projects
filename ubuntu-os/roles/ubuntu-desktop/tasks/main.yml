@@ -205,7 +205,7 @@
     - name: PACKAGES FOR HOBBIES
       apt:
         name:
-          - ghex
+          - hexwalk
           - gqrx-sdr
           - fritzing
           - fritzing-parts

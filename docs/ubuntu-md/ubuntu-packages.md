@@ -184,7 +184,7 @@ adduser $(whoami) tcpdump
 
 ## Varied tools
 apt install -y peek putty putty-tools telegram-desktop transmission cheese figlet mlocate \
-jq ghex gqrx-sdr terminator tree gparted gpart parted ntfs-3g exfat-fuse exfat-utils git \
+jq hexwalk gqrx-sdr terminator tree gparted gpart parted ntfs-3g exfat-fuse exfat-utils git \
 curl wget whois telnet xscreensaver-gl xscreensaver-gl-extra golang-docker-credential-helpers \
 keepassxc ssh-askpass ssh-askpass-gnome gromit-mpx
 
