@@ -264,7 +264,7 @@
     - name: INSTALL PACKAGES FOR HOBBIES
       ansible.builtin.apt:
         name:
-          - ghex
+          - hexwalk
           - gqrx-sdr
           - arduino
         state: latest
